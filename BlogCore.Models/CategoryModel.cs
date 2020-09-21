@@ -14,8 +14,8 @@ namespace BlogCore.Models
         [Display(Name = "Nombre Categoría")]
         public string CategoryName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Ingresar un orden de visualización")]
         [Display(Name = "Orden de Visualización")]
-        public string Order { get; set; }
+        public int Order { get; set; }
     }
 }
