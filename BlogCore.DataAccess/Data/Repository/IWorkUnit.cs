@@ -8,6 +8,7 @@ namespace BlogCore.DataAccess.Data.Repository
     {
         ICategoryRepository Category { get; }
 
+        IArticleRepository Article {get; }
         void Save();
     }
 }
