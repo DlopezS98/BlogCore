@@ -15,5 +15,7 @@ namespace BlogCore.DataAccess.Data
         }
 
         public DbSet<CategoryModel> Categories {get; set; }
+
+        public DbSet<ArticleModel> Articles {get; set;}
     }
 }
