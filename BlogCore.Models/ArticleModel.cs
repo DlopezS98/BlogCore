@@ -26,10 +26,11 @@ namespace BlogCore.Models
         [Display(Name = "Descripción")]
         public string ArticleDescription {get; set;}
 
-        [Required]
+        [Required (ErrorMessage = "Categoría obligatoria")]
         public int Fk_CategoryID {get; set;}
 
         [ForeignKey("Fk_CategoryID")]
+        [Display(Name = "Categorías")]
         public CategoryModel Category {get; set;}
     }
 }
