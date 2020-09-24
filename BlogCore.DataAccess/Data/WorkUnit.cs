@@ -11,12 +11,14 @@ namespace BlogCore.DataAccess.Data
         public WorkUnit(ApplicationDbContext _db)
         {
             this.db = _db;
-            Category = new CategoryRepository(_db);
-            Article = new ArticleRepository(_db);
+            Category = new CategoryRepository(db);
+            Article = new ArticleRepository(db);
+            Slider = new SliderRepository(db);
         }
 
         public ICategoryRepository Category { get; private set; }
         public IArticleRepository Article { get; private set; }
+        public ISliderRepository Slider {get; private set; }
 
         public void Dispose()
         {

@@ -9,6 +9,8 @@ namespace BlogCore.DataAccess.Data.Repository
         ICategoryRepository Category { get; }
 
         IArticleRepository Article {get; }
+
+        ISliderRepository Slider {get; }
         void Save();
     }
 }
