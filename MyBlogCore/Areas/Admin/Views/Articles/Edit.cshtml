@@ -4,48 +4,50 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="row">
-    <div class="col-md-8">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="text-primary">Editar articulo</h3>
-            </div>
-            <form method="POST" class="card-body" asp-action="Edit" enctype="multipart/form-data">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input type="hidden" asp-for="vm_Article.ArticleID">
-                <div class="form-group">
-                    <label asp-for="vm_Article.ArticleName" class="control-label"></label>
-                    <input asp-for="vm_Article.ArticleName" class="form-control" />
-                    <span asp-validation-for="vm_Article.ArticleName" class="text-danger"></span>
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="text-primary">Editar articulo</h3>
                 </div>
-                <div class="form-group">
-                    <label asp-for="vm_Article.ArticleDescription" class="control-label"></label>
-                    <textarea asp-for="vm_Article.ArticleDescription" class="form-control" style="height: 300px;"></textarea>
-                    <span asp-validation-for="vm_Article.ArticleDescription" class="text-danger"></span>
+                <form method="POST" class="card-body" asp-action="Edit" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="vm_Article.ArticleID">
+                    <div class="form-group">
+                        <label asp-for="vm_Article.ArticleName" class="control-label"></label>
+                        <input asp-for="vm_Article.ArticleName" class="form-control" />
+                        <span asp-validation-for="vm_Article.ArticleName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="vm_Article.ArticleDescription" class="control-label"></label>
+                        <textarea asp-for="vm_Article.ArticleDescription" class="form-control" style="height: 300px;"></textarea>
+                        <span asp-validation-for="vm_Article.ArticleDescription" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="vm_Article.Fk_CategoryID" class="control-label"></label>
+                        @Html.DropDownListFor(a => a.vm_Article.Fk_CategoryID, Model.vm_ListCategories,
+                        "[----Seleccione una Categoría----]", new {@class = "form-control"})
+                        <span asp-validation-for="vm_Article.Fk_CategoryID" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="vm_Article.ArticleImageUrl" class="control-label"></label>
+                        <input type="file" name="Files" id="uploadFiles" asp-for="vm_Article.ArticleImageUrl" class="form-control" />
+                        <span asp-validation-for="vm_Article.ArticleImageUrl" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block" asp-route-id="@Model.vm_Article.ArticleID" >Actualizar</button>
+                    </div>
+                </form>
+                <div class="card-footer">
+                    <a class="text-primary" asp-action="Index">Volver a la lista</a>
                 </div>
-                <div class="form-group">
-                    <label asp-for="vm_Article.Fk_CategoryID" class="control-label"></label>
-                    @Html.DropDownListFor(a => a.vm_Article.Fk_CategoryID, Model.vm_ListCategories,
-                    "[----Seleccione una Categoría----]", new {@class = "form-control"})
-                    <span asp-validation-for="vm_Article.Fk_CategoryID" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="vm_Article.ArticleImageUrl" class="control-label"></label>
-                    <input type="file" name="Files" id="uploadFiles" asp-for="vm_Article.ArticleImageUrl" class="form-control" />
-                    <span asp-validation-for="vm_Article.ArticleImageUrl" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-success btn-block" asp-route-id="@Model.vm_Article.ArticleID" >Actualizar</button>
-                </div>
-            </form>
-            <div class="card-footer">
-                <a class="text-primary" asp-action="Index">Volver a la lista</a>
             </div>
         </div>
-    </div>
-    <div class="col-md-4 d-flex flex-column justify-content-center align-items-center">
-        <h4 class="text-center mb-4">Imagen del Artículo</h4>
-            <img src="@Model.vm_Article.ArticleImageUrl" width="100%" style="border-radius: 20px; border: 1px solid #bbb9b9;" />
+        <div class="col-md-4 d-flex flex-column justify-content-center align-items-center">
+            <h4 class="text-center mb-4">Imagen del Artículo</h4>
+                <img src="@Model.vm_Article.ArticleImageUrl" width="100%" style="border-radius: 20px; border: 1px solid #bbb9b9;" />
+        </div>
     </div>
 </div>
 
