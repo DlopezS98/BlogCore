@@ -15,9 +15,8 @@ namespace BlogCore.DataAccess.Data
         }
 
         public DbSet<CategoryModel> Categories { get; set; }
-
         public DbSet<ArticleModel> Articles { get; set; }
-
         public DbSet<SliderModel> Sliders { get; set; }
+        public DbSet<ApplicationUserModel> ApplicationUser { get; set; }
     }
 }
