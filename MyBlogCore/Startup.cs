@@ -13,6 +13,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using BlogCore.DataAccess.Data;
 using BlogCore.DataAccess.Data.Repository;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using BlogCore.Utilities;
 
 namespace MyBlogCore
 {
@@ -31,8 +33,10 @@ namespace MyBlogCore
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+            services.AddSingleton<IEmailSender, EmailSender>();
             services.AddScoped<IWorkUnit, WorkUnit>();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages();
