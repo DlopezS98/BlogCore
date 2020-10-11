@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using BlogCore.DataAccess.Data.Repository;
+using BlogCore.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MyBlogCore.Models;
@@ -12,21 +14,28 @@ namespace MyBlogCore.Controllers
     [Area("Customer")]
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IWorkUnit iworkUnit;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IWorkUnit _iworkUnit)
         {
-            _logger = logger;
+            this.iworkUnit = _iworkUnit;
         }
 
         public IActionResult Index()
         {
-            return View();
+            HomePageVM home_vm = new HomePageVM()
+            {
+                VmSliders = iworkUnit.Slider.GetAll(),
+                VmArticles = iworkUnit.Article.GetAll()
+            };
+            return View(home_vm);
         }
 
-        public IActionResult Privacy()
+        [HttpGet]
+        public IActionResult Details(int id)
         {
-            return View();
+            var articleObj = iworkUnit.Article.GetFirstOrDefault(a => a.ArticleID == id);
+            return View(articleObj);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

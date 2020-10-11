@@ -1,8 +1,66 @@
-﻿@{
+﻿@model BlogCore.Models.ViewModels.HomePageVM;
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome To BlogCore!</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<header>
+    <div class="carousel slide" data-ride="carousel" id="carouselSlider">
+        <div class="carousel-inner">
+            @{int cont = 0;}
+            @foreach (var item in Model.VmSliders)
+            {
+                var itemClass = cont ++ == 0 ? "item active": "item";
+                <div class="carousel-item @itemClass">
+                    <img src="@Url.Content(item.SliderImageUrl)" style="width: 100%;"/>
+                    <h2 class="text-primary text-center">@Html.Raw(item.SliderName)</h2>
+                </div>
+            }
+        </div>
+        <a class="carousel-control-prev" href="#carouselSlider" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselSlider" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</header>
+
+<div class="">
+    <div class="row backgroundTitle mt-5">
+        <div class="col-sm-12 py-5">
+            <h2 class="text-center text-white">Últimos cursos y tutoriales</h2>
+        </div>
+    </div>
+</div>
+
+<!--Artículos-->
+<div class="container my-5">
+    @if(Model.VmArticles.Count() > 0){
+        <hr />
+        <div class="row">
+            @foreach (var article in Model.VmArticles.OrderBy(a => a.ArticleID))
+            {
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <img src="@article.ArticleImageUrl"class="img-thumbnail" width="100%">
+                            <div class="my-2">
+                                <h5 class="text-center">@article.ArticleName</h5>
+                                <p>@article.ArticleCreationDate</p> 
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                           <a class="btn btn-success" asp-action="Details" style="border-radius: 5px" asp-route-id="@article.ArticleID">Ver más</a>
+                        </div>
+                    </div>
+                </div>   
+            }
+        </div>
+    }else{
+        <div class="col-md-6 mx-auto">
+            <h4>No hay artículos actualmente</h4>
+        </div>
+    }
 </div>

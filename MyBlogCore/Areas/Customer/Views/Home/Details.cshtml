@@ -1,0 +1,29 @@
+@model BlogCore.Models.ArticleModel
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12 mx-auto col-md-8">
+            <div class="card">
+                <div class="card-header bg-light text-white">
+                    <div class="d-flex justify-content-between">
+                        <h4 class="text-primary">@Model.ArticleName</h4>
+                        <h4 class="text-muted">@Model.ArticleCreationDate</h4>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="">
+                        <img src="@Model.ArticleImageUrl" class="img-thumbnail mx-auto d-block">
+                        <p class="text-secondary">@Html.Raw(Model.ArticleDescription)</p>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a asp-action="Index" style="border-radius: 5px;" class="btn btn-outline-success btn-sm">Volver a inicio</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
