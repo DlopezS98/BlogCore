@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using BlogCore.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -11,17 +12,18 @@ namespace MyBlogCore.Areas.Identity.Pages.Account.Manage
 {
     public partial class IndexModel : PageModel
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<ApplicationUserModel> _userManager;
+        private readonly SignInManager<ApplicationUserModel> _signInManager;
 
         public IndexModel(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager)
+            UserManager<ApplicationUserModel> userManager,
+            SignInManager<ApplicationUserModel> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
         }
 
+        [Display(Name = "Usuario")]
         public string Username { get; set; }
 
         [TempData]
@@ -33,11 +35,27 @@ namespace MyBlogCore.Areas.Identity.Pages.Account.Manage
         public class InputModel
         {
             [Phone]
-            [Display(Name = "Phone number")]
+            [Display(Name = "Teléfono")]
             public string PhoneNumber { get; set; }
+
+            [Required(ErrorMessage = "El nombre es obligatorio")]
+            [Display(Name = "Nombre")]
+            public string FirstName { get; set; }
+
+            [Required(ErrorMessage = "La dirección es obligatoria")]
+            [Display(Name = "Dirección")]
+            public string Address { get; set; }
+
+            [Required(ErrorMessage = "La ciudad es obligatoria")]
+            [Display(Name = "Ciudad")]
+            public string City { get; set; }
+
+            [Required(ErrorMessage = "El país es obligatoria")]
+            [Display(Name = "País")]
+            public string Country { get; set; }
         }
 
-        private async Task LoadAsync(IdentityUser user)
+        private async Task LoadAsync(ApplicationUserModel user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
@@ -46,7 +64,11 @@ namespace MyBlogCore.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                FirstName = user.FirstName,
+                Address = user.Address,
+                City = user.City,
+                Country = user.Country
             };
         }
 
@@ -87,8 +109,15 @@ namespace MyBlogCore.Areas.Identity.Pages.Account.Manage
                 }
             }
 
+            user.FirstName = Input.FirstName;
+            user.Address = Input.Address;
+            user.City = Input.City;
+            user.Country = Input.Country;
+            user.PhoneNumber = user.PhoneNumber;
+            await _userManager.UpdateAsync(user);
+
             await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
+            StatusMessage = "Su perfil se actualizado correctamente";
             return RedirectToPage();
         }
     }
