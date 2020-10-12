@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MyBlogCore.Areas.Admin.Controllers
 {
+    [Authorize]
     [Area("Admin")]
     public class SlidersController : Controller
     {

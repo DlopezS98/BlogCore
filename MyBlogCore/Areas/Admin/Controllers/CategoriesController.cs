@@ -4,10 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using BlogCore.DataAccess.Data.Repository;
 using BlogCore.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MyBlogCore.Areas.Admin.Controllers
 {
+    [Authorize]
     [Area("Admin")]
     public class CategoriesController : Controller
     {

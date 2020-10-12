@@ -4,10 +4,12 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using BlogCore.DataAccess.Data.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MyBlogCore.Areas.Admin.Controllers
 {
+    [Authorize]
     [Area("Admin")]
     public class UsersController : Controller
     {

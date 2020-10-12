@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Mvc;
 using BlogCore.Models;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MyBlogCore.Areas.Admin.Controllers
 {
+    [Authorize]
     [Area("Admin")]
     public class ArticlesController : Controller
     {
