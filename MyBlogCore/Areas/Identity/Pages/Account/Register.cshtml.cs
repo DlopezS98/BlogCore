@@ -80,6 +80,10 @@ namespace MyBlogCore.Areas.Identity.Pages.Account
             [Required(ErrorMessage = "El país es obligatoria")]
             [Display(Name = "País")]
             public string Country { get; set; }
+
+            [Required(ErrorMessage = "El Teléfono es obligatorio")]
+            [Display(Name = "Número Teléfono")]
+            public string PhoneNumber { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -102,6 +106,7 @@ namespace MyBlogCore.Areas.Identity.Pages.Account
                     Address = Input.Address,
                     City = Input.City,
                     Country = Input.Country,
+                    PhoneNumber = Input.PhoneNumber,
                     EmailConfirmed = true
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);

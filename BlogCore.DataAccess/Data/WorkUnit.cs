@@ -14,11 +14,13 @@ namespace BlogCore.DataAccess.Data
             Category = new CategoryRepository(db);
             Article = new ArticleRepository(db);
             Slider = new SliderRepository(db);
+            User = new UserRepository(db);
         }
 
         public ICategoryRepository Category { get; private set; }
         public IArticleRepository Article { get; private set; }
-        public ISliderRepository Slider {get; private set; }
+        public ISliderRepository Slider { get; private set; }
+        public IUserRepository User { get; private set; }
 
         public void Dispose()
         {
